@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
+import {NextResponse } from "next/server";
 import { StreamChat } from "stream-chat"
 import { Redis } from '@upstash/redis'
 const redis = Redis.fromEnv()
@@ -8,7 +8,7 @@ const serverClient = StreamChat.getInstance(
   process.env.STREAM_API_KEY!,
   process.env.STREAM_API_SECRET!
 )
-export const GET = async(req:NextRequest)=>{
+export const GET = async()=>{
     try {
         const session = await auth()
         if(!session.userId)

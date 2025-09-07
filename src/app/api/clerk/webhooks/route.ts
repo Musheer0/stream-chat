@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import wh from '@clerk/nextjs/webhooks'
+import * as wh from '@clerk/nextjs/webhooks'
 import { StreamChat } from "stream-chat"
 
 const serverClient = StreamChat.getInstance(
@@ -16,7 +16,7 @@ export const POST = async (req:NextRequest)=>{
     const {id,first_name,last_name,image_url,phone_numbers,email_addresses,primary_phone_number_id,primary_email_address_id} = data
     const new_user = {
         id,
-        name:first_name+" "+last_name,
+        name:first_name+" "+last_name||'',
         image:image_url,
         email_address: email_addresses.find((e)=>e.id===primary_email_address_id)?.email_address||null,
         phone_number:phone_numbers.find((e)=>e.id===primary_phone_number_id)?.phone_number||null,
